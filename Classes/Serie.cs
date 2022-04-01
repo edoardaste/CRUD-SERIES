@@ -32,6 +32,7 @@ namespace Classes
             retorno += "Titulo: " + this.Titulo + Environment.NewLine;
             retorno += "Descrição: " + this.Descricao + Environment.NewLine;
             retorno += "Ano: " + this.Ano + Environment.NewLine;
+            retorno += "Excluido: " + this.Excluido;
             return retorno;
         }
 
@@ -47,6 +48,11 @@ namespace Classes
 
         public void Excluir() {
             this.Excluido = true;
+        }
+
+        public bool retornaExcluido()
+        {
+           return this.Excluido = true;
         }
 
 

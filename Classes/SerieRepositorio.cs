@@ -1,6 +1,6 @@
 using Classes.IRepositorio;
 
-namespace Classes 
+namespace Classes.SerieRepositorio
 {
     public class FilmeRepositorio : IRepositorio<Serie>
     {

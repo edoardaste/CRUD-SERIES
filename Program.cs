@@ -1,6 +1,6 @@
 ﻿
 using Classes.IRepositorio;
-using Classes;
+using Classes.SerieRepositorio;
 using System;
 namespace Classes
 {
@@ -17,21 +17,27 @@ namespace Classes
                 {
                     case "1":
                     ListarSeries();
+                    break;
 
                     case "2":
                     InserirSeries();
+                    break;
 
                     case "3":
                     AtualizarSeries();
+                    break;
 
                     case "4":
                     ExcluirSeries();
+                    break;
 
                     case "5":
                     VisualizarSeries();
+                    break;
 
                     case "C":
                     Console.Clear();
+                    break;
 
                     default:
                     throw  new ArgumentOutOfRangeException();
@@ -44,13 +50,57 @@ namespace Classes
             Console.ReadLine();
 
         }
+        
+        private static void VisualizarSeries()
+        {
+            Console.Write("Digite o id da série: ");
+            int indiceSerie = int.Parse(Console.ReadLine());
+
+            var serie = repositorio.RetornaPorId(indiceSerie);
+
+            Console.WriteLine(serie);
+        }
+        private static void ExcluirSeries()
+        {
+            Console.Write("Digite o id da série: ");
+            int indiceSerie = int.Parse(Console.ReadLine());
+
+            repositorio.Exclui(indiceSerie);
+        }
+        private static void AtualizarSeries()
+        {
+            Console.Write("Digite o id da série: ")
+            int indiceSerie = int.Parse(Console.ReadLine());
+
+            foreach ( int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+            }
+            Console.Write("igite o genero entre as opções acima: ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.Write("igite o genero entre as opções acima: ");
+            string entradaTitulo = Console.ReadLine();
+
+            Console.Write("igite o genero entre as opções acima: ");
+            int entradaAno = int.Parse(Console.ReadLine());
+
+            Console.Write("igite o genero entre as opções acima: ");
+            string entradaDescricao = Console.ReadLine();
+
+            Serie atualizaSerie = new Serie(id: indiceSerie, genero:(Genero)entradaGenero, titulo: entradaTitulo, ano: entradaAno, descricao: entradaDescricao);
+
+            repositorio.Atualiza(indiceSerie, atualizaSerie);
+
+        }
 
         private static void ListarSeries()
         {
             Console.WriteLine("Listar séries");
-            var lista = repositorio.ListaSerie();
 
-            if (lista.Count == 0)
+            var lista = repositorio.Lista();
+
+            if (lista.Equals(0))
             {
                 Console.WriteLine("Nenhuma série cadastrada.");
                 return;
@@ -58,7 +108,10 @@ namespace Classes
 
             foreach (var serie in lista)
             {
-                Console.WriteLine("#ID {0}: - {1}", serie.retornaId(), serie.retornaTitulo());
+                var excluido = serie.retornaExcluido();
+                
+                Console.WriteLine("#ID {0}: - {1} - {2}", serie.retornaId(), serie.retornaTitulo(), (excluido ? "Excluido" : ""));
+                
             }
 
         }
