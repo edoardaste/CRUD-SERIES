@@ -1,4 +1,7 @@
-﻿using Classes;
+﻿
+using Classes.IRepositorio;
+using Classes;
+using System;
 namespace Classes
 {
     class Program 
@@ -45,7 +48,7 @@ namespace Classes
         private static void ListarSeries()
         {
             Console.WriteLine("Listar séries");
-            var lista = repositorio.Lista();
+            var lista = repositorio.ListaSerie();
 
             if (lista.Count == 0)
             {
@@ -59,7 +62,30 @@ namespace Classes
             }
 
         }
-         private static string ObterOpcaoUsuario()
+        
+        private static async void InserirSeries()
+        {
+            foreach (var i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1}", await, Enum.GetName(typeof(Genero), i));
+            }
+                Console.WriteLine("Digite o gênero entre as opções acima: ");
+                int entradaGenero = int.Parse(Console.ReadLine());
+                
+                Console.WriteLine("Digite o gênero entre as opções acima: ");
+                string entradaTitulo = Console.ReadLine();
+                
+                Console.WriteLine("Digite o titulo entre as opções acima: ");
+                int entradaAno = int.Parse(Console.ReadLine());
+                
+                Console.WriteLine("Digite o gênero entre as opções acima: ");
+                string entradaDescricao = (Console.ReadLine();
+
+                Serie novaSerie = new Serie(id: repositorio.ProximoId(), genero: (Genero)entradaGenero, titulo: entradaTitulo, ano: entradaAno, descricao: entradaDescricao);
+                
+                repositorio.Insere(novaSerie);
+        }
+        private static string ObterOpcaoUsuario()
             {
                 Console.WriteLine();
                 Console.WriteLine("DIO Séries a seu dispor!!!");
